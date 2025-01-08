@@ -1,7 +1,6 @@
 variable "region" {
   type        = string
   description = "Linode region to deploy"
-  default     = "us-ord"
 }
 
 variable "pg_test_harness_label" {
