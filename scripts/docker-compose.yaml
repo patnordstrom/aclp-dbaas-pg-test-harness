@@ -1,0 +1,37 @@
+version: '3.0'
+services:
+
+  pgbench-init:
+    image: postgres:latest
+    environment:
+      PGAPPNAME: pgbench-init
+      PGHOST: $DB_HOST
+      PGPORT: $DB_PORT
+      PGUSER: $DB_USER
+      PGPASSWORD: $DB_PASSWORD
+      PGDATABASE: $DB_NAME
+    command: [
+      "pgbench",
+      "-i", # initialize
+      "-s", $PGBENCH_SCALE # scale
+    ]
+
+  pgbench:
+    image: postgres:latest
+    environment:
+      PGAPPNAME: pgbench
+      PGHOST: $DB_HOST
+      PGPORT: $DB_PORT
+      PGUSER: $DB_USER
+      PGPASSWORD: $DB_PASSWORD
+      PGDATABASE: $DB_NAME
+    command: [
+      "pgbench",
+      "-c", $PGBENCH_CLIENTS,
+      "-s", $PGBENCH_SCALE,
+      "-R", $PGBENCH_RATE,
+      "-j", $PGBENCH_THREADS,
+      "-T", $PGBENCH_DURATION,
+      "-b", $PGBENCH_SCRIPT,
+      "-P", "1" # show progress every 1 sec
+    ]
