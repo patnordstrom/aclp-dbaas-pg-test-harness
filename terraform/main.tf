@@ -17,6 +17,9 @@ resource "linode_instance" "pg_test_harness" {
     "user_name"    = var.authorized_users[0]
     "disable_root" = "Yes"
   }
+  metadata {
+    user_data = filebase64("../cloud-init/pg-test-harness-config.yaml")
+  }
 }
 
 resource "linode_firewall" "pg_test_harness_fw" {

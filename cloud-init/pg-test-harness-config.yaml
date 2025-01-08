@@ -1,0 +1,10 @@
+#cloud-config
+
+# download scripts to local machine
+runcmd:
+  - |
+    artifacts_dir="/test-artifacts"
+    scripts_dir="${artifacts_dir}/aclp-dbaas-pg-test-harness-main/scripts"
+    mkdir ${artifacts_dir}
+    cd ${artifacts_dir}
+    curl -sL https://github.com/patnordstrom/aclp-dbaas-pg-test-harness/archive/refs/heads/main.tar.gz | tar xz
